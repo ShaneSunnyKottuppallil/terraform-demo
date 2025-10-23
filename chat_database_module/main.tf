@@ -1,13 +1,3 @@
-
-//Null resource which triggers to recreate Chat DB Instance when Bastion Host is changed.
-resource "null_resource" "bastion_trigger" {
-  triggers = {
-    chatbastpubip = var.chatbastpubip
-  }
-}
-
-
-
 resource "aws_instance" "chatdb3"{
     ami=var.amiid
     instance_type=var.instancetype
@@ -17,13 +7,6 @@ resource "aws_instance" "chatdb3"{
     tags={
         Name="chatdb3"
     }
-
-    lifecycle {
-    replace_triggered_by = [
-      null_resource.bastion_trigger
-    ]
-  }
-
 
 
     connection {

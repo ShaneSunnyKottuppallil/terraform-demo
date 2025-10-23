@@ -32,3 +32,12 @@ module "chatdb"{
     chatbastpubip=module.chatbast.chatbastpubip
     path_to_prikey=var.path_to_prikey
 }
+
+module "chatapp" {
+  source="./chat_app_module"
+  prisub=module.vpc.prisub
+  sgs=module.sg.sgs
+  amiid=var.amiid
+  chatbastpubip=module.chatbast.chatbastpubip
+  path_to_prikey=var.path_to_prikey
+}

@@ -14,7 +14,7 @@ output "pubsub" {
 }
 
 output "prisub" {
-    description="public subnets"
+    description="private subnets"
     value={
         aid=aws_subnet.prisuba3.id
         bid=aws_subnet.prisubb3.id
