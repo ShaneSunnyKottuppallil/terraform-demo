@@ -5,19 +5,19 @@ provider "aws" {
 
 
 module "vpc" {
-  source = "./vpc_module"
+  source = "./modules/vpc_module"
   aza    = var.aza
   azb    = var.azb
   azc    = var.azc
 }
 
 module "sg" {
-  source = "./security_group_module"
+  source = "./modules/security_group_module"
   vpcid=module.vpc.vpcid
 }
 
 module "bast"{
-    source="./basthost_module"
+    source="./modules/basthost_module"
     pubsub=module.vpc.pubsub
     sgs=module.sg.sgs
     amiid=var.amiid
@@ -25,7 +25,7 @@ module "bast"{
 }
 
 module "db"{
-    source="./database_module"
+    source="./modules/database_module"
     prisub=module.vpc.prisub
     sgs=module.sg.sgs
     amiid=var.amiid
@@ -34,7 +34,7 @@ module "db"{
 }
 
 module "app" {
-  source="./app_module"
+  source="./modules/app_module"
   prisub=module.vpc.prisub
   sgs=module.sg.sgs
   amiid=var.amiid
@@ -43,7 +43,7 @@ module "app" {
 }
 
 module "web"{
-  source="./web_module"
+  source="./modules/web_module"
   pubsub=module.vpc.pubsub
   sgs=module.sg.sgs
   amiid=var.amiid
@@ -52,9 +52,17 @@ module "web"{
 }
 
 module "intalb" {
-  source="./alb_module"
+  source="./modules/app_alb_module"
   vpcid=module.vpc.vpcid
   chatappid=module.app.chatappid
   sgs=module.sg.sgs
   prisub=module.vpc.prisub
+}
+
+module "pubalb" {
+  source="./modules/web_alb_module"
+  vpcid=module.vpc.vpcid
+  chatwebid=module.web.chatwebid
+  sgs=module.sg.sgs
+  pubsub=module.vpc.pubsub
 }

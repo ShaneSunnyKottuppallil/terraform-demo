@@ -14,6 +14,7 @@ resource "aws_instance" "chatweb3"{
     tags={
         Name="chatweb3"
     }
+    associate_public_ip_address = true
     lifecycle{
         replace_triggered_by=[
             null_resource.bastion_trigger
