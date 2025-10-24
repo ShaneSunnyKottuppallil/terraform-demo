@@ -112,8 +112,8 @@ resource "aws_vpc_security_group_ingress_rule" "albappsgin" {
   security_group_id=aws_security_group.albappsg.id
   //referenced_security_group_id=aws_security_group.chatappsg.id
   cidr_ipv4="0.0.0.0/0"
-  from_port=80
-  to_port=80
+  from_port=8001
+  to_port=8001
   ip_protocol="tcp"
 }
 
