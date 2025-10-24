@@ -8,7 +8,6 @@ resource "aws_instance" "chatdb3"{
         Name="chatdb3"
     }
 
-
     connection {
         type="ssh"
         host=self.private_ip
@@ -37,3 +36,4 @@ resource "aws_instance" "chatdb3"{
     }
 
 }
+

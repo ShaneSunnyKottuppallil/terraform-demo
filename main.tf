@@ -16,28 +16,45 @@ module "sg" {
   vpcid=module.vpc.vpcid
 }
 
-module "chatbast"{
-    source="./chat_basthost_module"
+module "bast"{
+    source="./basthost_module"
     pubsub=module.vpc.pubsub
     sgs=module.sg.sgs
     amiid=var.amiid
     path_to_prikey=var.path_to_prikey
 }
 
-module "chatdb"{
-    source="./chat_database_module"
+module "db"{
+    source="./database_module"
     prisub=module.vpc.prisub
     sgs=module.sg.sgs
     amiid=var.amiid
-    chatbastpubip=module.chatbast.chatbastpubip
+    chatbastpubip=module.bast.chatbastpubip
     path_to_prikey=var.path_to_prikey
 }
 
-module "chatapp" {
-  source="./chat_app_module"
+module "app" {
+  source="./app_module"
   prisub=module.vpc.prisub
   sgs=module.sg.sgs
   amiid=var.amiid
-  chatbastpubip=module.chatbast.chatbastpubip
+  chatbastpubip=module.bast.chatbastpubip
   path_to_prikey=var.path_to_prikey
+}
+
+module "web"{
+  source="./web_module"
+  pubsub=module.vpc.pubsub
+  sgs=module.sg.sgs
+  amiid=var.amiid
+  chatbastpubip=module.bast.chatbastpubip
+  path_to_prikey=var.path_to_prikey
+}
+
+module "intalb" {
+  source="./alb_module"
+  vpcid=module.vpc.vpcid
+  chatappid=module.app.chatappid
+  sgs=module.sg.sgs
+  prisub=module.vpc.prisub
 }
