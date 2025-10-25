@@ -39,3 +39,14 @@ variable "path_to_prikey"{
     //default="/home/ssk/Downloads/chatapp.pem" //for ap-south-1
 }
 
+variable "instancetype"{
+  description="Instance Type"
+  type=string
+  default="t2.micro"
+}
+
+variable "keyname"{
+  description="Key name"
+  type=string
+  default="chatapp"
+}

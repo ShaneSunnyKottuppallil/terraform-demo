@@ -40,6 +40,8 @@ module "app" {
   amiid=var.amiid
   chatbastpubip=module.bast.chatbastpubip
   path_to_prikey=var.path_to_prikey
+  instancetype=var.instancetype
+  keyname=var.keyname
 }
 
 module "web"{
@@ -49,6 +51,8 @@ module "web"{
   amiid=var.amiid
   chatbastpubip=module.bast.chatbastpubip
   path_to_prikey=var.path_to_prikey
+  instancetype=var.instancetype
+  keyname=var.keyname
 }
 
 module "intalb" {
@@ -66,3 +70,20 @@ module "pubalb" {
   sgs=module.sg.sgs
   pubsub=module.vpc.pubsub
 }
+
+module "appasg" {
+  source="./modules/app_asg_module"
+  chatappid=module.app.chatappid
+  instancetype=var.instancetype
+  keyname=var.keyname
+  sgs=module.sg.sgs
+}
+
+module "webasg" {
+  source="./modules/web_asg_module"
+  chatwebid=module.web.chatwebid
+  instancetype=var.instancetype
+  keyname=var.keyname
+  sgs=module.sg.sgs
+}
+
