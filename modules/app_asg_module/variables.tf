@@ -36,4 +36,9 @@ variable "desiredcapacity"{
     default=2
 }
 
+variable "prisub"{
+    description="Private Subnet IDs"
+    type=map(string)
+}
+
 

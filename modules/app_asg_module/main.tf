@@ -25,5 +25,5 @@ resource "aws_autoscaling_group" "appasg"{
     launch_template{
         id=aws_launch_template.applt.id
     }
-    
+    vpc_zone_identifier=[for k in ["aid","bid","cid"]:var.prisub[k]]
 }

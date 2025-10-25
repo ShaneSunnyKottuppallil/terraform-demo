@@ -77,6 +77,7 @@ module "appasg" {
   instancetype=var.instancetype
   keyname=var.keyname
   sgs=module.sg.sgs
+  prisub=module.vpc.prisub
 }
 
 module "webasg" {
@@ -85,5 +86,6 @@ module "webasg" {
   instancetype=var.instancetype
   keyname=var.keyname
   sgs=module.sg.sgs
+  pubsub=module.vpc.pubsub
 }
 

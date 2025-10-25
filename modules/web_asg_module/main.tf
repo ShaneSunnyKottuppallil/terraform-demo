@@ -25,4 +25,5 @@ resource "aws_autoscaling_group" "webasg"{
     launch_template{
         id=aws_launch_template.weblt.id
     }
+    vpc_zone_identifier=[for k in ["aid","bid","cid"]:var.pubsub[k]]
 }

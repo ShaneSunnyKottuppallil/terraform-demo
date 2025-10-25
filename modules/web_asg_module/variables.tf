@@ -36,4 +36,8 @@ variable "desiredcapacity"{
     default=2
 }
 
+variable "pubsub"{
+    description="Public Subnet IDs"
+    type=map(string)
+}
 
