@@ -1,5 +1,32 @@
 # Terraform Implementation
 
+[![Terraform](https://img.shields.io/badge/Terraform-0.12%2B-blue)](https://www.terraform.io/)
+[![AWS](https://img.shields.io/badge/AWS-Infrastructure-orange)](https://aws.amazon.com/)
+[![Status](https://img.shields.io/badge/Status-Draft-yellowgreen)]()
+
+---
+
+> **Note:** The content below is taken verbatim from your documentation and presented with improved formatting for readability.
+
+---
+
+## Table of contents
+
+- [High-level architecture](#high-level-architecture)
+- [Project wiring (how modules are used in root)](#project-wiring-how-modules-are-used-in-root)
+- [Module-by-module detailed documentation](#module-by-module-detailed-documentation)
+  - [module: vpc_module](#module-vpc_module)
+  - [module: security_group_module](#module-security_group_module)
+  - [module: basthost_module](#module-basthost_module)
+  - [module: database_module](#module-database_module)
+  - [module: app_module](#module-app_module)
+  - [module: app_alb_module-internal-alb](#module-app_alb_module-internal-alb)
+  - [module: web_alb_module-public-alb](#module-web_alb_module-public-alb)
+  - [module: app_asg_module](#module-app_asg_module)
+  - [module: web_asg_module](#module-web_asg_module)
+- [Cross-cutting notes, gotchas, and risks](#cross-cutting-notes-gotchas-and-risks)
+- [Suggested small improvements](#suggested-small-improvements)
+
 ---
 
 ## High-level architecture
@@ -21,15 +48,15 @@
 
 ## Project wiring (how modules are used in root)
 
-- **VPC** – module "vpc" -> creates network and outputs `vpcid`, `pubsub`, `prisub`.
-- **SG** – module "sg" -> creates security groups, consumes `vpcid`, outputs `sgs`.
-- **Bastion** – module "bast" -> consumes public subnets + SGs; outputs `chatbastpubip`.
-- **DB** – module "db" -> consumes private subnets, SGs, AMI, bastion IP.
-- **App** – module "app" -> consumes private subnets, SGs, AMI, bastion IP; outputs `chatappid`.
-- **Web** – module "web" -> consumes public subnets, SGs, AMI, bastion IP; outputs `chatwebid`.
-- **Internalalb** – module "intalb" -> consumes VPC ID, app instance ID, SGs, private subnets.
-- **Publicalb** – module "pubalb" -> consumes VPC ID, web instance ID, SGs, public subnets.
-- **Appasg** – consumes `chatappid` to create AMI and ASG.
+- **VPC** – module "vpc" -> creates network and outputs `vpcid`, `pubsub`, `prisub`.  
+- **SG** – module "sg" -> creates security groups, consumes `vpcid`, outputs `sgs`.  
+- **Bastion** – module "bast" -> consumes public subnets + SGs; outputs `chatbastpubip`.  
+- **DB** – module "db" -> consumes private subnets, SGs, AMI, bastion IP.  
+- **App** – module "app" -> consumes private subnets, SGs, AMI, bastion IP; outputs `chatappid`.  
+- **Web** – module "web" -> consumes public subnets, SGs, AMI, bastion IP; outputs `chatwebid`.  
+- **Internalalb** – module "intalb" -> consumes VPC ID, app instance ID, SGs, private subnets.  
+- **Publicalb** – module "pubalb" -> consumes VPC ID, web instance ID, SGs, public subnets.  
+- **Appasg** – consumes `chatappid` to create AMI and ASG.  
 - **Webasg** – consumes `chatwebid` to create AMI and ASG.
 
 This enforces the order:  
@@ -168,4 +195,4 @@ This enforces the order:
 
 ---
 
-*This README content is formatted for GitHub Markdown. Copy and paste into your repository's `README.md` file.*
+> _This README content is formatted for GitHub Markdown. Copy and paste into your repository's `README.md` file._
