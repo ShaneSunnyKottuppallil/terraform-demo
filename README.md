@@ -4,9 +4,6 @@
 [![AWS](https://img.shields.io/badge/AWS-Infrastructure-orange)](https://aws.amazon.com/)
 [![Status](https://img.shields.io/badge/Status-Draft-yellowgreen)]()
 
----
-
-> **Note:** The content below is taken verbatim from your documentation and presented with improved formatting for readability.
 
 ---
 
@@ -194,5 +191,3 @@ This enforces the order:
 - **Keys** – Make key path optional.
 
 ---
-
-> _This README content is formatted for GitHub Markdown. Copy and paste into your repository's `README.md` file._
